@@ -1,0 +1,35 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.label {
+  font-size: 14px;
+  color: grey;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.submitBtn {
+  /* border: 1px solid grey; */
+  border: 1px solid #2d3436;
+  border-radius: 5px;
+  padding: 2px;
+  background-color: #636e72;
+  color: white;
+  width: 150px;
+  text-transform: uppercase;
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+}
+
+.submitBtn:active {
+  background-color: #2d3436;
+}
