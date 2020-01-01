@@ -6,7 +6,7 @@ import Contact from '../Contact/Contact';
 const ContactList = ({ items, onDeleteContact }) =>
   items.length > 0 && (
     <div className={styles.container}>
-      <h2>Contacts</h2>
+      <h2 className={styles.title}>Contacts</h2>
       <ul className={styles.list}>
         {items.map(item => (
           <li key={item.id} className={styles.listItem}>

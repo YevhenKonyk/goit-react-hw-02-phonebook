@@ -3,10 +3,22 @@ import uuid from 'uuid';
 import ContactList from '../ContactList/ContactList';
 import styles from './App.module.css';
 
+const filterContacts = (contacts, filter) =>
+  contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
 export default class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Scorpion', phone: '222-33-55' },
+      { id: 'id-2', name: 'Sub Zero', phone: '555-88-77' },
+      { id: 'id-3', name: 'Syrex', phone: '444-88-99' },
+      { id: 'id-4', name: 'Sector', phone: '888-22-44' },
+    ],
     name: '',
+    phone: '',
+    filter: '',
   };
 
   addContact = contact => {
@@ -28,8 +40,8 @@ export default class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name } = this.state;
-    this.addContact({ name });
+    const { name, phone } = this.state;
+    this.addContact({ name, phone });
     this.reset();
   };
 
@@ -41,22 +53,23 @@ export default class App extends Component {
   };
 
   reset() {
-    this.setState({ name: '' });
+    this.setState({ name: '', phone: '' });
   }
 
   render() {
-    const { name, contacts } = this.state;
+    const { name, phone, filter, contacts } = this.state;
+    const filteredContacts = filterContacts(contacts, filter);
 
     return (
       <>
-        <h2>Phonebook</h2>
+        <h2 className={styles.title}>Phonebook</h2>
         <form
           name="phonebook"
           onSubmit={this.handleSubmit}
           className={styles.form}
         >
           <label htmlFor="" className={styles.label}>
-            Contact name
+            Name
           </label>
           <input
             type="text"
@@ -65,13 +78,52 @@ export default class App extends Component {
             onChange={this.handleInputChange}
             id=""
             className={styles.input}
+            required
           />
-          <button type="submit" className={styles.submitBtn} disabled="">
+          <label htmlFor="" className={styles.label}>
+            Phone (format: xxx-xx-xx)
+          </label>
+          <input
+            type="tel"
+            pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
+            placeholder="xxx-xx-xx"
+            required
+            name="phone"
+            value={phone}
+            onChange={this.handleInputChange}
+            id=""
+            className={styles.input}
+          />
+          <button
+            type="submit"
+            title="Add contact"
+            className={styles.submitBtn}
+            disabled=""
+          >
             Add contact
           </button>
         </form>
 
-        <ContactList items={contacts} onDeleteContact={this.deleteContact} />
+        <div className={styles.search}>
+          <label htmlFor="" className={styles.label}>
+            Search by name
+          </label>
+          <input
+            type="text"
+            name="filter"
+            value={filter}
+            placeholder="Search by name..."
+            onChange={this.handleInputChange}
+            id=""
+            className={styles.input}
+            required
+          />
+        </div>
+
+        <ContactList
+          items={filteredContacts}
+          onDeleteContact={this.deleteContact}
+        />
       </>
     );
   }
