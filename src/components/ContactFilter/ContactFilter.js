@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 import styles from './ContactFilter.module.css';
+
+const searchInputId = uuid.v4();
 
 const ContactFilter = ({ value, onChangeFilter }) => (
   <div className={styles.search}>
-    <label htmlFor="" className={styles.label}>
+    <label htmlFor={searchInputId} className={styles.label}>
       Search by name
     </label>
     <input
@@ -13,7 +16,7 @@ const ContactFilter = ({ value, onChangeFilter }) => (
       value={value}
       placeholder="Enter contact name"
       onChange={onChangeFilter}
-      id=""
+      id={searchInputId}
       className={styles.input}
       required
     />

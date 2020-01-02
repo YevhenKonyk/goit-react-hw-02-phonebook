@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 import styles from './ContactForm.module.css';
 
 class ContactForm extends Component {
   state = { name: '', phone: '' };
+
+  nameInputId = uuid.v4();
+
+  phoneInputId = uuid.v4();
 
   handleSubmit = e => {
     e.preventDefault();
@@ -36,7 +41,7 @@ class ContactForm extends Component {
           onSubmit={this.handleSubmit}
           className={styles.form}
         >
-          <label htmlFor="" className={styles.label}>
+          <label htmlFor={this.nameInputId} className={styles.label}>
             Name
           </label>
           <input
@@ -44,11 +49,11 @@ class ContactForm extends Component {
             name="name"
             value={name}
             onChange={this.handleInputChange}
-            id=""
+            id={this.nameInputId}
             className={styles.input}
             required
           />
-          <label htmlFor="" className={styles.label}>
+          <label htmlFor={this.phoneInputId} className={styles.label}>
             Phone (format: xxx-xx-xx)
           </label>
           <input
@@ -59,7 +64,7 @@ class ContactForm extends Component {
             name="phone"
             value={phone}
             onChange={this.handleInputChange}
-            id=""
+            id={this.phoneInputId}
             className={styles.input}
           />
           <button
