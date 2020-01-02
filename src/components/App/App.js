@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import ContactFilter from '../ContactFilter/ContactFilter';
 import ContactList from '../ContactList/ContactList';
 import styles from './App.module.css';
 import Section from '../Section/Section';
@@ -108,21 +109,10 @@ export default class App extends Component {
         </Section>
 
         <Section>
-          <div className={styles.search}>
-            <label htmlFor="" className={styles.label}>
-              Search by name
-            </label>
-            <input
-              type="text"
-              name="filter"
-              value={filter}
-              placeholder="Search by name..."
-              onChange={this.handleInputChange}
-              id=""
-              className={styles.input}
-              required
-            />
-          </div>
+          <ContactFilter
+            value={filter}
+            onChangeFilter={this.handleInputChange}
+          />
         </Section>
 
         <Section>
