@@ -21,15 +21,35 @@ export default class App extends Component {
     filter: '',
   };
 
-  addContact = contact => {
-    const newContact = {
-      ...contact,
-      id: uuid.v4(),
-    };
+  isContactInList = (contact, contacts) => {
+    let isContactInList = false;
 
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+    for (let i = 0; i < contacts.length; i += 1) {
+      const element = contacts[i];
+
+      if (element.name.toLowerCase() === contact.name.toLowerCase()) {
+        isContactInList = true;
+        break;
+      }
+    }
+
+    return isContactInList;
+  };
+
+  addContact = contact => {
+    const { contacts } = this.state;
+    if (!this.isContactInList(contact, contacts)) {
+      const newContact = {
+        ...contact,
+        id: uuid.v4(),
+      };
+
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }));
+    } else {
+      alert(`The contact ${contact.name} is already in list`);
+    }
   };
 
   deleteContact = id => {
