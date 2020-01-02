@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 import ContactFilter from '../ContactFilter/ContactFilter';
 import ContactList from '../ContactList/ContactList';
-import styles from './App.module.css';
 import Section from '../Section/Section';
+import ContactForm from '../ContactForm/ContactForm';
 
 const filterContacts = (contacts, filter) =>
   contacts.filter(contact =>
@@ -18,8 +18,6 @@ export default class App extends Component {
       { id: 'id-3', name: 'Syrex', phone: '444-88-99' },
       { id: 'id-4', name: 'Sector', phone: '888-22-44' },
     ],
-    name: '',
-    phone: '',
     filter: '',
   };
 
@@ -40,13 +38,6 @@ export default class App extends Component {
     }));
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { name, phone } = this.state;
-    this.addContact({ name, phone });
-    this.reset();
-  };
-
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
@@ -54,58 +45,14 @@ export default class App extends Component {
     });
   };
 
-  reset() {
-    this.setState({ name: '', phone: '' });
-  }
-
   render() {
-    const { name, phone, filter, contacts } = this.state;
+    const { filter, contacts } = this.state;
     const filteredContacts = filterContacts(contacts, filter);
 
     return (
       <>
         <Section>
-          <h2 className={styles.title}>Phonebook</h2>
-          <form
-            name="phonebook"
-            onSubmit={this.handleSubmit}
-            className={styles.form}
-          >
-            <label htmlFor="" className={styles.label}>
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={this.handleInputChange}
-              id=""
-              className={styles.input}
-              required
-            />
-            <label htmlFor="" className={styles.label}>
-              Phone (format: xxx-xx-xx)
-            </label>
-            <input
-              type="tel"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
-              placeholder="xxx-xx-xx"
-              required
-              name="phone"
-              value={phone}
-              onChange={this.handleInputChange}
-              id=""
-              className={styles.input}
-            />
-            <button
-              type="submit"
-              title="Add contact"
-              className={styles.submitBtn}
-              disabled=""
-            >
-              Add contact
-            </button>
-          </form>
+          <ContactForm onAddContact={this.addContact} />
         </Section>
 
         <Section>
