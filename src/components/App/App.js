@@ -27,7 +27,7 @@ export default class App extends Component {
     for (let i = 0; i < contacts.length; i += 1) {
       const element = contacts[i];
 
-      if (element.name.toLowerCase() === contact.name.toLowerCase()) {
+      if (element.name.toLowerCase().includes(contact.name.toLowerCase())) {
         isContactInList = true;
         break;
       }
