@@ -21,20 +21,10 @@ export default class App extends Component {
     filter: '',
   };
 
-  isContactInList = (contact, contacts) => {
-    let isContactInList = false;
-
-    for (let i = 0; i < contacts.length; i += 1) {
-      const element = contacts[i];
-
-      if (element.name.toLowerCase().includes(contact.name.toLowerCase())) {
-        isContactInList = true;
-        break;
-      }
-    }
-
-    return isContactInList;
-  };
+  isContactInList = (contact, contacts) =>
+    contacts.find(element =>
+      element.name.toLowerCase().includes(contact.name.toLowerCase()),
+    );
 
   addContact = contact => {
     const { contacts } = this.state;
